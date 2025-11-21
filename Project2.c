@@ -1,9 +1,23 @@
 #include <stdio.h>
 
-void print_bin(unsigned char num) {
-    printf("0b");
+unsigned char convert_num(unsigned char num) {
+    if (num > 9) {
+        switch(num) {
+            case 'A': num = 10;
+            case 'B': num = 11;
+            case 'C': num = 12;
+            case 'D': num = 13;
+            case 'E': num = 14;
+            case 'F': num = 15;
+        }
+    }
 
-    for (int i = 4; i >= 0; i--) {
+    printf("%hhu\n", num);
+    return num;
+}
+
+void print_bin(unsigned char num) {
+    for (int i = 3; i >= 0; i--) {
         if (num & (1 << i)) {
             printf("1");
         } else {
@@ -19,6 +33,8 @@ int main() {
 
     printf("Enter Hexademical Digit: ");
     scanf("%hhu", &num);
+
+    num = convert_num(num);
 
     print_bin(num);
 
