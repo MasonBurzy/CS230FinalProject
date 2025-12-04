@@ -1,22 +1,36 @@
 #include <stdio.h>
+#include <ctype.h>
 
-unsigned char convert_num(unsigned char num) {
-    if (num > 9) {
-        switch(num) {
-            case 'A': num = 10;
-            case 'B': num = 11;
-            case 'C': num = 12;
-            case 'D': num = 13;
-            case 'E': num = 14;
-            case 'F': num = 15;
-        }
+unsigned char convert_num(char input) {
+    unsigned char num;
+    switch(input) {
+        case 'a': 
+            num = 10;
+            break;
+        case 'b': 
+            num = 11;
+            break;
+        case 'c': 
+            num = 12;
+            break;
+        case 'd': 
+            num = 13;
+            break;
+        case 'e': 
+            num = 14;
+            break;
+        case 'f': 
+            num = 15;
+            break;
+        default:
+            num = input - 48;
     }
 
-    printf("%hhu\n", num);
     return num;
 }
 
 void print_bin(unsigned char num) {
+    printf("Binary: ");
     for (int i = 3; i >= 0; i--) {
         if (num & (1 << i)) {
             printf("1");
@@ -25,18 +39,23 @@ void print_bin(unsigned char num) {
         }
     }
 
-    printf("\n");
+    printf("\n\n");
 }
 
 int main() {
-    unsigned char num;
-
+    char input;
     printf("Enter Hexademical Digit: ");
-    scanf("%hhu", &num);
+    scanf(" %c", &input);
 
-    num = convert_num(num);
+    while (tolower(input) != 'x') {
+        unsigned char num = convert_num(tolower(input));
+        print_bin(num);
 
-    print_bin(num);
+        printf("Enter Hexademical Digit: ");
+        scanf(" %c", &input);
+    }
+
+    printf("You have exited!\n");
 
     return 0;
 }
